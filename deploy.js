@@ -9,17 +9,18 @@ const provider = new HDWalletProvider(
 
 const web3 = new Web3(provider);
 
+// need to deploy to rinkby network w/ node deploy.js
+
 const deploy = async () => {
   const accounts = await web3.eth.getAccounts();
   console.log('attempting to deploy from account:', accounts[0]);
 
   const result = await new web3.eth.Contract(JSON.parse(interface))
     .deploy({
-      data: '0x' + bytecode,
-      arguments: ['Hi there!']
+      data: '0x' + bytecode
     })
     .send({ gas: '1000000', from: accounts[0] });
-
+  console.log(interface);
   console.log('Contract deployed to: ', result.options.address);
 };
 deploy();
